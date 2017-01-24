@@ -10,7 +10,7 @@ import (
 	"kaliwe.ru/menu/models"
 )
 
-func ShowNewIngredient(c *gin.Context) {
+func Ingredient(c *gin.Context) {
 	c.HTML(
 		http.StatusOK,
 		"ingredient_new.html",
@@ -18,8 +18,29 @@ func ShowNewIngredient(c *gin.Context) {
 	)
 }
 
-func NewIngredient(c *gin.Context) {
+func IngredientNew(c *gin.Context) {
+	db := db.GetInstance()
 	name, _ := c.GetPostForm("name")
 	ingredient := models.Ingredient{Name: name}
-	db.GetInstance().Create(&ingredient)
+
+	db = db.Create(&ingredient)
+
+	if err := db.Error; err != nil {
+		c.Redirect(http.StatusBadRequest, "/ingredient/new")
+	} else {
+		c.Redirect(http.StatusMovedPermanently, "/ingredients")
+	}
+}
+
+func Ingredients(c *gin.Context) {
+	ingredients := []models.Ingredient{}
+	db.GetInstance().Preload("Ingredients").Find(&ingredients)
+	c.HTML(
+		http.StatusOK,
+		"ingredients.html",
+		gin.H{
+			"ingredients": ingredients,
+		},
+	)
+
 }

@@ -24,8 +24,9 @@ func main() {
 	})
 
 	// Ingredient routes
-	router.GET("/ingredient/new", handlers.ShowNewIngredient)
-	router.POST("/ingredient/new", handlers.NewIngredient)
+	router.GET("/ingredients", handlers.Ingredients)
+	router.GET("/ingredient/new", handlers.Ingredient)
+	router.POST("/ingredient/new", handlers.IngredientNew)
 
 	router.Run()
 }

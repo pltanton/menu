@@ -1,0 +1,13 @@
+{{ template "header.html"}}
+
+{{ range .ingredients }}
+
+<table>
+    <tr>
+        <td>{{ .Name }}</td>
+    </tr>
+</table>
+
+{{ end }}
+
+{{ template "footer.html"}}
