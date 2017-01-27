@@ -34,7 +34,7 @@ func IngredientNew(c *gin.Context) {
 
 func Ingredients(c *gin.Context) {
 	ingredients := []models.Ingredient{}
-	db.GetInstance().Preload("Ingredients").Find(&ingredients)
+	db.GetInstance().Find(&ingredients)
 	c.HTML(
 		http.StatusOK,
 		"ingredients.html",
