@@ -1,13 +1,19 @@
 {{ template "header.html"}}
 
+<table id="ingredients-table">
 {{ range .ingredients }}
-
-<table>
     <tr>
         <td>{{ .Name }}</td>
     </tr>
+{{ end }}
 </table>
 
-{{ end }}
+<form id="new-ingredient-form" action="/ingredient/new" method="post">
+    <input type="text" name="name">
+    <input type="submit" value="Submit">
+</form>
+
+<script src='vendor/js/jquery.min.js'></script>
+<script src='assets/js/ingredients.js'></script>
 
 {{ template "footer.html"}}

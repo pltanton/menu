@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	//"fmt"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -10,25 +10,18 @@ import (
 	"kaliwe.ru/menu/models"
 )
 
-func Ingredient(c *gin.Context) {
-	c.HTML(
-		http.StatusOK,
-		"ingredient_new.html",
-		nil,
-	)
-}
-
 func IngredientNew(c *gin.Context) {
 	db := db.GetInstance()
-	name, _ := c.GetPostForm("name")
+	name := c.Query("name")
+	fmt.Println(name)
+	fmt.Println("mamke ebal")
 	ingredient := models.Ingredient{Name: name}
-
 	db = db.Create(&ingredient)
 
 	if err := db.Error; err != nil {
-		c.Redirect(http.StatusBadRequest, "/ingredient/new")
+		c.JSON(http.StatusBadRequest, err)
 	} else {
-		c.Redirect(http.StatusMovedPermanently, "/ingredients")
+		c.JSON(http.StatusOK, nil)
 	}
 }
 
@@ -42,5 +35,4 @@ func Ingredients(c *gin.Context) {
 			"ingredients": ingredients,
 		},
 	)
-
 }

@@ -6,14 +6,12 @@ import (
 
 // Init initializes application
 func Init() *gin.Engine {
-	// TODO: move to another package
 	router := gin.Default()
+
+	// TODO: move to another package
 	router.LoadHTMLGlob("templates/*")
 
-	// TODO: move to another package
-	router.Static("/javascripts", "assets")
-	router.Static("/stylesheets", "assets")
-
+	initStatics(router)
 	initRoutes(router)
 	initDB()
 

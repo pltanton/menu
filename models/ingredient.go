@@ -6,5 +6,5 @@ import (
 
 type Ingredient struct {
 	gorm.Model
-	Name string `gorm:"primary_key"`
+	Name string `gorm:"not null;unique"`
 }
