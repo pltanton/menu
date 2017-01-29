@@ -10,6 +10,10 @@ import (
 	"kaliwe.ru/menu/models"
 )
 
+func IngredientRemove(c *gin.Context) {
+
+}
+
 func IngredientNew(c *gin.Context) {
 	db := db.GetInstance()
 	name := c.Query("name")

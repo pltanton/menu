@@ -1,0 +1,27 @@
+:root {
+    --main-form-elem-height: 30px;
+}
+
+input {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    height: var(--main-form-elem-height);
+    font-family: hack;
+    transition: ease 200ms;
+}
+
+input[type=text] {
+    color: var(--main-lighterstgrey);
+    background-color: var(--main-darkestgrey);
+    box-sizing: border-box;
+    padding: 3px 5px 3px 5px;
+}
+
+input:focus[type=text], input[type=submit] {
+    background-color: var(--main-darkgrey);
+}
+
+input:hover[type=submit] {
+    background-color: var(--main-black);
+}

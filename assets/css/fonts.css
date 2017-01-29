@@ -1,0 +1,23 @@
+@font-face {
+    font-family: hack;
+    src: url(/vendor/fonts/Hack-Regular.ttf);
+}
+
+@font-face {
+    font-family: hack;
+    font-weight: bold;
+    src: url(/vendor/fonts/Hack-Bold.ttf);
+}
+
+@font-face {
+    font-family: hack;
+    font-style: italic;
+    src: url(/vendor/fonts/Hack-Italic.ttf);
+}
+
+@font-face {
+    font-family: hack;
+    font-style: italic;
+    font-weight: bold;
+    src: url(/vendor/fonts/Hack-BoldItalic.ttf);
+}

@@ -1,0 +1,33 @@
+#new_ingredient_form {
+    position: sticky;
+    display: flex;
+    bottom: 0;
+}
+
+#new_ingredient_form input[name=name] {
+    width: calc(100% - var(--main-form-elem-height));
+}
+
+#new_ingredient_form input[type=submit] {
+    width: var(--main-form-elem-height);
+}
+
+section.main {
+    position: relative;
+    overflow-y: auto;
+    width: 100%;
+    max-width: 600px;
+    padding: 10px;
+    background-color: var(--main-darkestgrey);
+    align-self: flex-start;
+}
+
+#ingredients_table {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 5px;
+}
+
+.ingredient-elem { display: flex; justify-content: space-between; padding: 0; }
+.ingredient-elem span.remove { font-weight: bold; }
+

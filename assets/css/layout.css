@@ -1,0 +1,21 @@
+@import "./form.css";
+@import "./color.css";
+@import "./fonts.css";
+
+html, body {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: hack;
+}
+
+body {
+    justify-content: center;
+    background-color: var(--main-black);
+    color: var(--main-lighterstgrey);
+}
+
+.flex-container {
+    display: flex;
+}

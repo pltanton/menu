@@ -1,13 +1,17 @@
 function addIngredient(name) {
-    table = $('#ingredients-table');
-    $('<tr>').append($('<td>').html(name)).appendTo(table)
+    table = $('#ingredients_table');
+    $('<li>', { class: 'ingredient-elem' })
+        .append($('<span>', { class: 'name' }).html(name))
+        .append($('<span>', { class: 'remove' }).html('[✗]'))
+        .appendTo(table);
 }
 
+// Initializes form to submit new ingredient
 function initForm() {
-    $('#new-ingredient-form').submit((event) => {
+    $('#new_ingredient_form').submit((event) => {
         event.preventDefault();
-        req_url = '/ingredient/new?' + $('#new-ingredient-form').serialize();
-        console.log(req_url)
+        req_url = '/ingredient/new?' + $('#new_ingredient_form').serialize();
+        console.log(req_url);
         post = $.post(req_url);
 
         post.fail(formRejected);
@@ -22,7 +26,7 @@ function formRejected(data) {
 
 // Action for accepted post request
 function formAccepted() {
-    nameInput = $('#new-ingredient-form input[name=name]');
+    nameInput = $('#new_ingredient_form input[name=name]');
     addIngredient(nameInput.val());
     nameInput.val('');
     $('html').scrollTop($(document).height());
