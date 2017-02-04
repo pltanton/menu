@@ -1,13 +1,13 @@
 package config
 
 import (
-	"github.com/gin-gonic/gin"
+	"net/http"
+
 	"kaliwe.ru/menu/handlers"
 )
 
-func initRoutes(router *gin.Engine) {
+func initRoutes() {
 	// Ingredient routes
-	router.GET("/", handlers.Ingredients)
-	router.GET("/ingredients", handlers.Ingredients)
-	router.POST("/ingredient/new", handlers.IngredientNew)
+	http.HandleFunc("/ingredients", handlers.Ingredients)
+	http.HandleFunc("/ingredient/new", handlers.IngredientNew)
 }

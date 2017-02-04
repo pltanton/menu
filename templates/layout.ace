@@ -1,0 +1,8 @@
+= doctype html
+html lang=en
+  head
+    meta charset=utf-8
+    title Cook book
+    link rel="stylesheet" type="text/css" href="/assets/css/layout.css"
+  body.flex-container
+    = yield main

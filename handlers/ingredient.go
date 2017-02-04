@@ -1,42 +1,36 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
-
-	"github.com/gin-gonic/gin"
 
 	"kaliwe.ru/menu/db"
 	"kaliwe.ru/menu/models"
 )
 
-func IngredientRemove(c *gin.Context) {
-
-}
-
-func IngredientNew(c *gin.Context) {
+func IngredientNew(w http.ResponseWriter, r *http.Request) {
 	db := db.GetInstance()
-	name := c.Query("name")
-	fmt.Println(name)
-	fmt.Println("mamke ebal")
+	name := r.URL.Query().Get("name")
 	ingredient := models.Ingredient{Name: name}
 	db = db.Create(&ingredient)
 
 	if err := db.Error; err != nil {
-		c.JSON(http.StatusBadRequest, err)
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(err)
 	} else {
-		c.JSON(http.StatusOK, nil)
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(err)
 	}
 }
 
-func Ingredients(c *gin.Context) {
+func Ingredients(w http.ResponseWriter, r *http.Request) {
 	ingredients := []models.Ingredient{}
 	db.GetInstance().Find(&ingredients)
-	c.HTML(
-		http.StatusOK,
-		"ingredients.html",
-		gin.H{
-			"ingredients": ingredients,
-		},
-	)
+	_, err := RespondAce(w, "ingredients", map[string]interface{}{
+		"Ingredients": ingredients,
+	})
+	if err != nil {
+		fmt.Println(err)
+	}
 }

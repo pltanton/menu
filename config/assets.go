@@ -1,10 +1,10 @@
 package config
 
 import (
-	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
-func initStatics(router *gin.Engine) {
-	router.Static("/assets", "assets")
-	router.Static("/vendor", "vendor/assets")
+func initStatics() {
+	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
+	http.Handle("/vendor/", http.StripPrefix("/vendor/", http.FileServer(http.Dir("vendor/assets"))))
 }

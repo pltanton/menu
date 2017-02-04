@@ -1,19 +1,15 @@
 package config
 
 import (
-	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 // Init initializes application
-func Init() *gin.Engine {
-	router := gin.Default()
+func Init() {
 
-	// TODO: move to another package
-	router.LoadHTMLGlob("templates/*")
-
-	initStatics(router)
-	initRoutes(router)
 	initDB()
+	initRoutes()
+	initStatics()
 
-	return router
+	http.ListenAndServe(":8080", nil)
 }

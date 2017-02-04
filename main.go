@@ -5,6 +5,5 @@ import (
 )
 
 func main() {
-	router := config.Init()
-	router.Run()
+	config.Init()
 }

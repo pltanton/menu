@@ -1,0 +1,17 @@
+= content main
+  link rel="stylesheet" type="text/css" href="/assets/css/ingredients.css"
+
+  section.main
+    ul#ingredients_table
+      {{ range .Ingredients }}
+      li.ingredient-elem
+        span.name {{ .Name }}
+        span.remove [✗]
+      {{ end }}
+
+    form#new_ingredient_form action="/ingredient/new" method="post"
+      input type="text" name="name" placeholder="Add new ingredient"
+      input type="submit" value="✓"
+
+  script src="vendor/js/jquery.min.js"
+  script src="assets/js/ingredients.js"
