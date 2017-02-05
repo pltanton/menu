@@ -1,9 +1,12 @@
-function addIngredient(name) {
+function addIngredient(name, id) {
     table = $('#ingredients_table');
-    $('<li>', { class: 'ingredient-elem' })
-        .append($('<span>', { class: 'name' }).html(name))
-        .append($('<span>', { class: 'remove' }).html('[✗]'))
+    console.log(id);
+    close = $('<span>', { class: 'remove' }).html('[✗]');
+    $('<li>', { class: 'ingredient-elem', 'data-id': id})
+        .append($('<span>', { class: 'name' }).html(name.trim()))
+        .append(close)
         .appendTo(table);
+    close.click(deleteCallback);
 }
 
 // Initializes form to submit new ingredient
@@ -11,7 +14,6 @@ function initForm() {
     $('#new_ingredient_form').submit((event) => {
         event.preventDefault();
         req_url = '/ingredient/new?' + $('#new_ingredient_form').serialize();
-        console.log(req_url);
         post = $.post(req_url);
 
         post.fail(formRejected);
@@ -25,9 +27,10 @@ function formRejected(data) {
 }
 
 // Action for accepted post request
-function formAccepted() {
+function formAccepted(data) {
+    data = JSON.parse(data);
     nameInput = $('#new_ingredient_form input[name=name]');
-    addIngredient(nameInput.val());
+    addIngredient(nameInput.val(), data.id);
     nameInput.val('');
     $('html').scrollTop($(document).height());
 }
@@ -35,23 +38,26 @@ function formAccepted() {
 // Callbacks to delete ingredient
 function initDeleteActions() {
     $('span.remove').each(function(index) {
-        $(this).click(function() {
-            id = $(this).parent().data('id');
-            request = $.ajax({
-                url: '/ingredient/' + id,
-                type: 'DELETE'
-            });
-            request.fail(deleteRejected);
-            request.done(deleteAccepetd(id));
-        });
+        $(this).click(deleteCallback);
     });
+}
+
+function deleteCallback() {
+    id = $(this).parent().data('id');
+    request = $.ajax({
+        url: '/ingredient/' + id,
+        type: 'DELETE',
+        success: deleteAccepted(id),
+        error: deleteRejected
+    });
+    request.fail(deleteRejected);
 }
 
 function deleteRejected(data) {
     console.log(data);
 }
 
-function deleteAccepetd(id) {
+function deleteAccepted(id) {
     return function(data) {
         $('li.ingredient-elem[data-id="'+id+'"]').remove();
     };

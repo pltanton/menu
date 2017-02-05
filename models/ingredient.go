@@ -1,10 +1,6 @@
 package models
 
-import (
-	"github.com/jinzhu/gorm"
-)
-
 type Ingredient struct {
-	gorm.Model
+	ID   uint   `gorm:"primary_key"`
 	Name string `gorm:"not null;unique"`
 }

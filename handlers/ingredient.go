@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/gorilla/mux"
 
@@ -14,15 +15,19 @@ import (
 
 // IngredientNew creates new ingredient by given name
 func IngredientNew(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
 	db := db.GetInstance()
-	name := vars["name"]
+	name := strings.TrimSpace(r.URL.Query().Get("name"))
+	fmt.Println(name)
 	ingredient := models.Ingredient{Name: name}
 	db = db.Create(&ingredient)
 
 	if err := db.Error; err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(err)
+	} else {
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"id": ingredient.ID,
+		})
 	}
 }
 

@@ -1,11 +1,7 @@
 package models
 
-import (
-	"github.com/jinzhu/gorm"
-)
-
 type Recipe struct {
-	gorm.Model
+	ID          uint   `gorm:"primary_key"`
 	Name        string `gorm:"not null;unique"`
 	Description string
 	Ingredients []Ingredient `gorm:"many2many:recipe_ingredients"`
