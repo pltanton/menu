@@ -32,6 +32,33 @@ function formAccepted() {
     $('html').scrollTop($(document).height());
 }
 
+// Callbacks to delete ingredient
+function initDeleteActions() {
+    $('span.remove').each(function(index) {
+        $(this).click(function() {
+            id = $(this).parent().data('id');
+            request = $.ajax({
+                url: '/ingredient/' + id,
+                type: 'DELETE'
+            });
+            request.fail(deleteRejected);
+            request.done(deleteAccepetd(id));
+        });
+    });
+}
+
+function deleteRejected(data) {
+    console.log(data);
+}
+
+function deleteAccepetd(id) {
+    return function(data) {
+        $('li.ingredient-elem[data-id="'+id+'"]').remove();
+    };
+}
+
+// Entry point on page load
 $( () => {
     initForm();
+    initDeleteActions();
 });

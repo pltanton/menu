@@ -29,5 +29,5 @@ section.main {
 }
 
 .ingredient-elem { display: flex; justify-content: space-between; padding: 0; }
-.ingredient-elem span.remove { font-weight: bold; }
+.ingredient-elem span.remove { font-weight: bold; cursor: pointer; }
 

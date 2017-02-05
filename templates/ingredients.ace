@@ -4,7 +4,7 @@
   section.main
     ul#ingredients_table
       {{ range .Ingredients }}
-      li.ingredient-elem
+      li.ingredient-elem data-id="{{ .ID }}"
         span.name {{ .Name }}
         span.remove [✗]
       {{ end }}
